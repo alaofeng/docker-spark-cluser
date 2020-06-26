@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   spark-master:
-    image: laofeng/apache-spark:2.4.6
+    image: laofeng/apache-spark-jupyter:2.4.6
     hostname: spark-master
     ports:
       - "8080:8080"
@@ -15,7 +15,7 @@ services:
       - "SPARK_LOCAL_IP=spark-master"
       - "PYSPARK_PYTHON=/usr/bin/python3"
     command: 
-      - "/start-master.sh"
+      - "/start-pyspark-hudi.sh"
   spark-worker:
     image: laofeng/apache-spark-jupyter:2.4.6
     depends_on:
