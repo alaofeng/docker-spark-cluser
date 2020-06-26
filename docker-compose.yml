@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  spark-master:
+    image: laofeng/apache-spark-jupyter:2.4.6
+    hostname: spark-master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+      - "18888:18888"
+    volumes:
+       - ./apps:/opt/apps
+       - ./data:/opt/data
+       - ./logs:/opt/spark/logs
+    environment:
+      - "SPARK_LOCAL_IP=spark-master"
+      - "PYSPARK_PYTHON=/usr/bin/python3"
+    command: 
+      - "/start-pyspark.sh"
+  spark-worker:
+    image: laofeng/apache-spark-jupyter:2.4.6
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_DRIVER_MEMORY=128m
+      - SPARK_EXECUTOR_MEMORY=256m
+      - "PYSPARK_PYTHON=/usr/bin/python3"
+    volumes:
+       - ./apps:/opt/apps
+       - ./data:/opt/data
+       - ./logs:/opt/spark/logs
+    command: ["/start-worker.sh"]
