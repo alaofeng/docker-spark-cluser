@@ -8,7 +8,7 @@
 - apache-spark：bigdata_base + spark 2.4.6
 - apache-spark-jupyter:   apache-spark + Jupiter
 
-###使用普通spark集群:
+### 使用普通spark集群:
 
 Docker-compose up -d --scale spark-worker=2
 
@@ -16,7 +16,7 @@ Docker-compose up -d --scale spark-worker=2
 
 访问spark ui：http://localhost:8080
 
-###使用支持pyspark&jupyter的spark集群:
+### 使用支持pyspark&jupyter的spark集群:
 
 Docker-compose -f docker-compose-jupyter.yml up -d --scale spark-worker=2
 
